@@ -1,6 +1,7 @@
 import { useQuery, UseQueryResult } from 'react-query';
 import Person from '../Person';
 import { useState } from 'react';
+import PaginationNav from '../PaginationNav';
 const People = () => {
 	const [page, setPage] = useState<number | string>(1);
 	const fetchPeople = async (key: string, page: number | string) => {
@@ -18,15 +19,7 @@ const People = () => {
 	return (
 		<div>
 			<h1>People</h1>
-			<button onClick={() => setPage(1)}>1</button>
-			<button onClick={() => setPage(2)}>2</button>
-			<button onClick={() => setPage(3)}>3</button>
-			<button onClick={() => setPage(4)}>4</button>
-			<button onClick={() => setPage(5)}>5</button>
-			<button onClick={() => setPage(6)}>6</button>
-			<button onClick={() => setPage(7)}>7</button>
-			<button onClick={() => setPage(8)}>8</button>
-			<button onClick={() => setPage(9)}>9</button>
+			<PaginationNav setPage={setPage} />
 			{status === 'error' && <h2>Error on data fetching</h2>}
 			{status === 'loading' && <h2>Loading data</h2>}
 			{status === 'success' &&
@@ -40,6 +33,9 @@ const People = () => {
 						/>
 					);
 				})}
+			{status !== 'idle' && status !== 'success' && status !== 'loading' && (
+				<h2>Any data available</h2>
+			)}
 		</div>
 	);
 };

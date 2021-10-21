@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useQuery, UseQueryResult } from 'react-query';
+import PaginationNav from '../PaginationNav';
 import Planet from '../Planet';
 
 const Planets = () => {
@@ -20,15 +21,7 @@ const Planets = () => {
 	return (
 		<div>
 			<h1>Planets</h1>
-			<button onClick={() => setPage(1)}>1</button>
-			<button onClick={() => setPage(2)}>2</button>
-			<button onClick={() => setPage(3)}>3</button>
-			<button onClick={() => setPage(4)}>4</button>
-			<button onClick={() => setPage(5)}>5</button>
-			<button onClick={() => setPage(6)}>6</button>
-			<button onClick={() => setPage(7)}>7</button>
-			<button onClick={() => setPage(8)}>8</button>
-			<button onClick={() => setPage(9)}>9</button>
+			<PaginationNav setPage={setPage} />
 			{status === 'error' && <h2>Error on data fetching</h2>}
 			{status === 'loading' && <h2>Loading data</h2>}
 			{status === 'success' &&
@@ -43,7 +36,9 @@ const Planets = () => {
 						/>
 					);
 				})}
-			{status !== 'idle' && status !== 'loading' && <h2>Any data available</h2>}
+			{status !== 'idle' && status !== 'success' && status !== 'loading' && (
+				<h2>Any data available</h2>
+			)}
 		</div>
 	);
 };
