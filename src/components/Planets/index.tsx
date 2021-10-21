@@ -22,7 +22,13 @@ const Planets = () => {
 			<h1>Planets</h1>
 			<button onClick={() => setPage(1)}>1</button>
 			<button onClick={() => setPage(2)}>2</button>
-			<button onClick={() => setPage(1)}>3</button>
+			<button onClick={() => setPage(3)}>3</button>
+			<button onClick={() => setPage(4)}>4</button>
+			<button onClick={() => setPage(5)}>5</button>
+			<button onClick={() => setPage(6)}>6</button>
+			<button onClick={() => setPage(7)}>7</button>
+			<button onClick={() => setPage(8)}>8</button>
+			<button onClick={() => setPage(9)}>9</button>
 			{status === 'error' && <h2>Error on data fetching</h2>}
 			{status === 'loading' && <h2>Loading data</h2>}
 			{status === 'success' &&
@@ -37,6 +43,7 @@ const Planets = () => {
 						/>
 					);
 				})}
+			{status !== 'idle' && status !== 'loading' && <h2>Any data available</h2>}
 		</div>
 	);
 };

@@ -1,18 +1,36 @@
-import { useQuery } from 'react-query';
+import { useQuery, UseQueryResult } from 'react-query';
 import Person from '../Person';
+import { useState } from 'react';
 const People = () => {
-	const fetchPeople = async () => {
-		const res = await fetch('https://swapi.dev/api/people');
-		return res.json();
+	const [page, setPage] = useState<number | string>(1);
+	const fetchPeople = async (key: string, page: number | string) => {
+		const res = await fetch(`https://swapi.dev/api/people/?page=${page}`);
+		const res_json = await res.json();
+		return res_json.results;
 	};
-	const { data, status } = useQuery('people', fetchPeople, {});
+	const { data, status }: UseQueryResult<IPerson[], Error> = useQuery(
+		['people', page],
+		() => {
+			return fetchPeople('people', page);
+		},
+		{}
+	);
 	return (
 		<div>
 			<h1>People</h1>
+			<button onClick={() => setPage(1)}>1</button>
+			<button onClick={() => setPage(2)}>2</button>
+			<button onClick={() => setPage(3)}>3</button>
+			<button onClick={() => setPage(4)}>4</button>
+			<button onClick={() => setPage(5)}>5</button>
+			<button onClick={() => setPage(6)}>6</button>
+			<button onClick={() => setPage(7)}>7</button>
+			<button onClick={() => setPage(8)}>8</button>
+			<button onClick={() => setPage(9)}>9</button>
 			{status === 'error' && <h2>Error on data fetching</h2>}
 			{status === 'loading' && <h2>Loading data</h2>}
 			{status === 'success' &&
-				data?.results.map((person: IPerson) => {
+				data?.map((person: IPerson) => {
 					return (
 						<Person
 							key={person.name}
